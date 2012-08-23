@@ -144,6 +144,15 @@ attribute "block_device/devices/default/backup/rackspace_snet",
   :default => "true",
   :recipes => [ "block_device::default" ] + backup_recipes + restore_recipes
 
+attribute "block_device/ephemeral/quota",
+  :display_name => "Enable disk quotas on ephemeral",
+  :description => "Whether to enable quotas on ephemeral disk (false by default)",
+  :type => "string",
+  :required => "optional",
+  :choice => ["true", "false"],
+  :default => "false",
+  :recipes => [ "block_device::setup_ephemeral" ]
+
 # Multiple Block Devices
 device_count = 2
 devices = 1.upto(device_count).map {|number| "device#{number}"}

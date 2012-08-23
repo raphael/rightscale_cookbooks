@@ -35,6 +35,9 @@ if node[:platform] == "redhat"
   filesystem_type = "ext3"
 else
   filesystem_type = "xfs"
+  if node[:block_device][:ephemeral] && node[:block_device][:ephemeral][:quota] == "true"
+    options += ",uquota"
+  end
 end
 
 root_device = `mount`.find {|dev| dev.include? " on / "}.split[0]
